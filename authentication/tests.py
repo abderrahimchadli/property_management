@@ -70,11 +70,11 @@ class AuthenticationTests(TestCase):
     def test_authenticated_request(self):
         user = User.objects.create_user(**self.user_data)
         self.client.force_authenticate(user=user)
-        response = self.client.get('/api/properties/')  # Assuming this is a protected endpoint
+        response = self.client.get('/api/properties/')  
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_unauthenticated_request(self):
-        response = self.client.get('/api/properties/')  # Assuming this is a protected endpoint
+        response = self.client.get('/api/properties/')  
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_logout(self):
@@ -83,8 +83,5 @@ class AuthenticationTests(TestCase):
         self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {refresh.access_token}')
         
         response = self.client.post('/auth/logout/', {'refresh': str(refresh)})
-        
-        print(f"Response status code: {response.status_code}")
-        print(f"Response content: {response.content}")
         
         self.assertEqual(response.status_code, status.HTTP_205_RESET_CONTENT)

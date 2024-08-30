@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.tokens import RefreshToken
 
 
 User = get_user_model()
@@ -22,3 +23,13 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         token = super().get_token(user)
         token['email'] = user.email
         return token
+
+class LogoutSerializer(serializers.Serializer):
+    refresh = serializers.CharField()
+
+    def save(self, **kwargs):
+        try:
+            refresh_token = RefreshToken(self.validated_data['refresh'])
+            refresh_token.blacklist()
+        except Exception as e:
+            self.fail('bad_token')  # Only pass the error message key
