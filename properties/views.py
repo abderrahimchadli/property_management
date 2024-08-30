@@ -42,6 +42,7 @@ def send_due_payment_notifications():
         tenant_email = payment.tenant.contact_details
         send_email(tenant_email, payment.tenant.name, payment.amount)
 
+#to remove
 def send_email(to_email, tenant_name, amount):
     subject = 'Payment Due Reminder'
     message = f'Dear {tenant_name}, your payment of ${amount} is overdue. Please pay as soon as possible.'
