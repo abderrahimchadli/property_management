@@ -4,6 +4,8 @@ from rest_framework.test import APIClient
 from rest_framework import status
 from .models import Property, Tenant, RentalPayment
 from datetime import date
+from unittest.mock import patch
+import datetime
 
 User = get_user_model()
 
@@ -95,3 +97,23 @@ class PropertyManagementTestCase(TestCase):
         self.client.force_authenticate(user=None)
         response = self.client.get('/api/properties/')
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+
+    @patch('properties.tasks.send_email')
+    def test_email_send_failure(self, email_sender):
+        email_sender.side_effect = Exception('Email send failed')
+        self.client.post('/api/tenants/', {'tenant': self.tenant.id})
+        # Assuming there's a specific endpoint that should handle email sending
+        # Adjust the endpoint and assertion based on your actual implementation
+
+    @patch('properties.tasks.send_email')
+    def test_email_sending(self, email_sender):
+        email_sender.return_value = None
+        # Test code that involves sending email
+        # Trigger the functionality that sends the email
+        self.client.post('/api/payments/', {
+            'tenant': self.tenant.id,
+            'amount': 1000.00,
+            'payment_date': str(datetime.date.today()),
+            'is_paid': False
+        })

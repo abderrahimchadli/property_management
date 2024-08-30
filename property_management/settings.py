@@ -44,8 +44,10 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     'django_filters',
+    'django_celery_beat',
     'authentication',
     'properties',
+    
     
 ]
 
@@ -138,6 +140,8 @@ EMAIL_HOST_USER = 'email@mail.com'
 EMAIL_HOST_PASSWORD = 'pass'
 DEFAULT_FROM_EMAIL = 'support@mail.com'
 
+CELERY_BROKER_URL = 'redis://localhost:6379/0' 
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
