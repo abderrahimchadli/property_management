@@ -17,7 +17,7 @@ class StandardResultsSetPagination(PageNumberPagination):
     max_page_size = 100
 
 class PropertyViewSet(viewsets.ModelViewSet):
-    queryset = Property.objects.all()
+    queryset = Property.objects.all().order_by('name')
     serializer_class = PropertySerializer
     permission_classes = [IsAuthenticated]
     filter_backends = [DjangoFilterBackend, OrderingFilter]
