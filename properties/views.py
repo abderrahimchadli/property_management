@@ -24,6 +24,8 @@ class PropertyViewSet(viewsets.ModelViewSet):
     filterset_fields = ['property_type', 'rental_cost']
     ordering_fields = ['name', 'rental_cost']
     pagination_class = StandardResultsSetPagination
+    # This fancy setup lets users filter properties (like "show all apartments")
+    # and sort them (like "show cheapest first"). Super useful for finding the perfect place!
 
 
 class TenantViewSet(viewsets.ModelViewSet):

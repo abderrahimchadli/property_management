@@ -11,16 +11,16 @@ from rest_framework.permissions import IsAuthenticated
 
 
 class RegisterView(generics.CreateAPIView):
-    permission_classes = (AllowAny,)
+    permission_classes = (AllowAny,) # Everyone's welcome to join !
     serializer_class = UserSerializer
 
 class CustomTokenObtainPairView(TokenObtainPairView):
-    serializer_class = CustomTokenObtainPairSerializer
+    serializer_class = CustomTokenObtainPairSerializer  # Our special recipe for tokens
 
 
 class LogoutView(APIView):
     permission_classes = (IsAuthenticated,)
-
+     # Time to say goodbye and invalidate that token
     def post(self, request):
         serializer = LogoutSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)

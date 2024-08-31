@@ -6,9 +6,11 @@ import datetime
 
 @shared_task
 def send_due_payment_notifications():
+    # First, we find all the overdue and unpaid rent.
     due_payments = RentalPayment.objects.filter(is_paid=False, payment_date__lt=datetime.date.today())
     for payment in due_payments:
         tenant_email = payment.tenant.contact_details
+        # Time to give a friendly Reminder to those who forgot to pay
         send_email(tenant_email, payment.tenant.name, payment.amount)
 
 def send_email(to_email, tenant_name, amount):

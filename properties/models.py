@@ -20,7 +20,7 @@ class Property(models.Model):
     def __str__(self):
         return self.name
     class Meta:
-        ordering = ['name']
+        ordering = ['name'] # This makes sure properties show up alphabetically in lists
 
 
 class Tenant(models.Model):
@@ -46,4 +46,7 @@ class RentalPayment(models.Model):
     is_paid = models.BooleanField(default=False)
 
     def __str__(self):
+        # This gives us a nice summary of the payment, like:
+        # "Ahmed chihaja - 2024-08-30 - Paid" or "youssef knito - 2024-09-01 - Unpaid"
+
         return  f"{self.tenant.name} - {self.payment_date} - {'Paid' if self.is_paid else 'Unpaid'}"
