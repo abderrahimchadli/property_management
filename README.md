@@ -17,7 +17,7 @@ This is a Django-based API for a property management application. It allows prop
 1. Clone the repository:
    ```
    git clone https://github.com/Egaokira/property_management.git
-   cd property-management
+   cd property_management
    ```
 
 2. Create a virtual environment and activate it:
