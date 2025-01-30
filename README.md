@@ -1,5 +1,6 @@
- # Property Management Application
 
+ # Property Management Application
+**Developer**: Abderrahim Chadli
 ## Overview
 This is a Django-based API for a property management application. It allows property managers to add properties, manage tenants, and monitor rent payments.
 
